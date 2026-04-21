@@ -21,16 +21,16 @@ assert_tech_stack = _assert_tech_stack
 TECH_STACK = _TECH_STACK
 
 # =============================================================================
-# 🏗️ GENERATORS
+# 🏗️ GENERATORS (self-contained)
 # =============================================================================
-# Load and re-export generator modules
-load('./generators/vite/helpers.star',
-    _vite_generate_backend_config='generate_backend_config',
-    _vite_generate_frontend_config='generate_frontend_config'
-)
+# Note: Generators that require cross-repo dependencies are loaded separately
+# This module only exports self-contained utilities
 
-vite_generate_backend_config = _vite_generate_backend_config
-vite_generate_frontend_config = _vite_generate_frontend_config
+# Local constants only
+DOCKER_CONSTANTS = {
+    "BUN_VERSION": "1.3.11",
+    "BUN_IMAGE": "oven/bun:1.3.11-alpine",
+}
 
 # =============================================================================
 # 🔧 UTILITIES
