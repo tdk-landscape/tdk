@@ -1,55 +1,159 @@
-"""
-TDK Tech Stack Specification
+#!/usr/bin/env starlark
+# -*- coding: utf-8 -*-
+# =============================================================================
+# 🏗️ TILT TECH STACK MASTER CONFIG
+# =============================================================================
+# 
+# Defines the approved technology choices for the Beauty CRM platform.
+# This is the single source of truth for tech stack validation.
+#
+# See: docs/TILT_MASTER_CONFIGS.md
+# =============================================================================
 
-Master configuration for the platform technology stack.
-"""
+def get_tech_stack():
+    """Returns the complete tech stack definition."""
+    return {
+        # Core runtime and build tools
+        "bundler": "vite",
+        "runtime": "bun",
+        "language": "typescript",
+        
+        # Database and ORM
+        "orm": "prisma",
+        
+        # Messaging and events
+        "messaging": "nats",
+        
+        # Development tools
+        "linting": "biome",
+        "testing": "vitest",
+        
+        # Web framework
+        "web_framework": "hono",
+    }
 
-# Core tech stack definitions
+# Constants for direct import
 BUNDLER = "vite"
 RUNTIME = "bun"
 ORM = "prisma"
-DATABASE = "postgresql"
 MESSAGING = "nats"
 LINTING = "biome"
 TESTING = "vitest"
 WEB_FRAMEWORK = "hono"
+LANGUAGE = "typescript"
 
-def assert_tech_stack(config):
+TECH_STACK = get_tech_stack()
+
+def validate_tech_stack(config, strict=False):
     """
-    Validate service configuration against platform tech stack.
+    Validates a configuration against the platform tech stack.
     
     Args:
-        config: Dict with bundler, runtime, testing, etc.
+        config: Dict with tech stack choices to validate
+        strict: If True, fails on any non-compliance. If False, warns.
+    
+    Returns:
+        Dict with validation results: {"valid": bool, "errors": [], "warnings": []}
+    """
+    errors = []
+    warnings = []
+    
+    # Check for override reason
+    has_override = "_override_reason" in config and config["_override_reason"]
+    
+    # Strict validations (must match platform standard)
+    strict_validations = {
+        "bundler": "vite",
+        "runtime": "bun",
+        "orm": "prisma",
+        "messaging": "nats",
+    }
+    
+    for key, standard in strict_validations.items():
+        if key in config:
+            value = config[key]
+            if value.lower() != standard.lower():
+                if has_override:
+                    warnings.append("Override active: {}='{}' (Reason: {})".format(
+                        key, value, config["_override_reason"]
+                    ))
+                elif strict:
+                    errors.append(
+                        "❌ Tech Stack Error: {}: '{}' is not supported. " +
+                        "Platform standard is '{}'. Use _override_reason to document exceptions.".format(
+                            key, value, standard
+                        )
+                    )
+                else:
+                    warnings.append(
+                        "⚠️ Tech Stack Warning: {}: '{}' is not standard. " +
+                        "Platform standard is '{}'.".format(key, value, standard)
+                    )
+    
+    # Optional validations (warnings if missing or different)
+    optional_validations = {
+        "linting": "biome",
+        "testing": "vitest",
+    }
+    
+    for key, standard in optional_validations.items():
+        if key in config:
+            value = config[key]
+            if value.lower() != standard.lower():
+                if has_override:
+                    warnings.append("Override active: {}='{}' (Reason: {})".format(
+                        key, value, config["_override_reason"]
+                    ))
+                else:
+                    warnings.append(
+                        "⚠️ Tech Stack Warning: {}: '{}' differs from standard '{}'.".format(
+                            key, value, standard
+                        )
+                    )
+    
+    return {
+        "valid": len(errors) == 0,
+        "errors": errors,
+        "warnings": warnings,
+    }
+
+def assert_tech_stack(config, strict=False):
+    """
+    Validates tech stack and fails fast on errors.
+    
+    Args:
+        config: Dict with tech stack choices to validate
+        strict: If True, fails on any non-compliance
     
     Raises:
-        Error if validation fails
+        Exception: If validation fails with errors
     """
-    bundler = config.get("bundler")
-    runtime = config.get("runtime")
-    testing = config.get("testing")
+    result = validate_tech_stack(config, strict)
     
-    if bundler and bundler != BUNDLER:
-        override = config.get("_override_reason")
-        if not override:
-            fail("Bundler must be '%s', got '%s'. Use _override_reason for exceptions." % (BUNDLER, bundler))
+    # Print warnings
+    for warning in result["warnings"]:
+        print(warning)
     
-    if runtime and runtime != RUNTIME:
-        fail("Runtime must be '%s', got '%s'" % (RUNTIME, runtime))
+    # Fail on errors
+    if not result["valid"]:
+        for error in result["errors"]:
+            print(error)
+        fail("Tech stack validation failed. See errors above.")
     
-    if testing and testing != TESTING:
-        print("⚠️  Testing framework '%s' differs from standard '%s'" % (testing, TESTING))
-    
-    print("✅ Tech stack validated: %s (bundler), %s (runtime), %s (testing)" % (bundler or BUNDLER, runtime or RUNTIME, testing or TESTING))
+    return result
 
-def get_tech_stack():
-    """Returns the complete tech stack configuration."""
-    return {
-        "bundler": BUNDLER,
-        "runtime": RUNTIME,
-        "orm": ORM,
-        "database": DATABASE,
-        "messaging": MESSAGING,
-        "linting": LINTING,
-        "testing": TESTING,
-        "web_framework": WEB_FRAMEWORK,
-    }
+# Export public API
+__all__ = [
+    "get_tech_stack",
+    "validate_tech_stack",
+    "assert_tech_stack",
+    "BUNDLER",
+    "RUNTIME",
+    "ORM",
+    "MESSAGING",
+    "LINTING",
+    "TESTING",
+    "WEB_FRAMEWORK",
+    "LANGUAGE",
+    "TECH_STACK",
+]
