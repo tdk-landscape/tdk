@@ -29,8 +29,8 @@ def generate_frontend_internal_aliases(service_path, manifest, config_depth_offs
     Generate internal package aliases for frontend Vite config.
     
     Convention over Configuration:
-        @beauty-crm/platform-x → {rel_to_root}shared-platform-engineering/platform-x/src
-        @beauty-crm/product-x  → {rel_to_root}shared-product-engineering/product-x/src
+        @tdk/platform-x → {rel_to_root}shared-platform-engineering/platform-x/src
+        @tdk/product-x  → {rel_to_root}shared-product-engineering/product-x/src
     """
     internal_deps = manifest.get('_internalDeps', [])
     
@@ -45,8 +45,8 @@ def generate_frontend_internal_aliases(service_path, manifest, config_depth_offs
     lines = ['      // 🔥 Auto-generated internal package aliases (from package.json)']
     
     for dep in sorted(internal_deps):
-        if dep.startswith('@beauty-crm/'):
-            lib_name = dep.replace('@beauty-crm/', '')
+        if dep.startswith('@tdk/'):
+            lib_name = dep.replace('@tdk/', '')
             
             # Determine library root by naming convention
             if lib_name.startswith('platform-'):
@@ -70,7 +70,7 @@ def generate_frontend_optimize_deps(manifest):
     if not internal_deps:
         return ''
     
-    optimize_deps = [dep for dep in internal_deps if dep.startswith('@beauty-crm/')]
+    optimize_deps = [dep for dep in internal_deps if dep.startswith('@tdk/')]
     
     if not optimize_deps:
         return ''
@@ -99,7 +99,7 @@ def generate_proxy_block(api_base_path, backend_port, additional_routes, domain=
     api_path = get_api_path_for_domain(domain)
     
     # Build Traefik gateway URL using the full API path
-    # Format: http://beauty-crm.localhost/api/v1/{full-service-name}
+    # Format: http://TDK Landscape.localhost/api/v1/{full-service-name}
     local_target = build_traefik_url(api_path)
     
     routes = [
@@ -147,8 +147,8 @@ def generate_backend_path_aliases(service_path, manifest):
     
     internal_deps = manifest.get('_internalDeps', [])
     for dep in sorted(internal_deps):
-        if dep.startswith('@beauty-crm/'):
-            lib_name = dep.replace('@beauty-crm/', '')
+        if dep.startswith('@tdk/'):
+            lib_name = dep.replace('@tdk/', '')
             
             if lib_name.startswith('platform-'):
                 lib_path = rel_to_root + 'shared-platform-engineering/' + lib_name + '/dist'
@@ -186,7 +186,7 @@ def generate_externals_config(manifest):
 def generate_vitest_inline_deps(manifest):
     """Generate Vitest inline deps for internal packages."""
     internal_deps = manifest.get('_internalDeps', [])
-    inline_deps = [dep for dep in internal_deps if dep.startswith('@beauty-crm/')]
+    inline_deps = [dep for dep in internal_deps if dep.startswith('@tdk/')]
     
     if not inline_deps:
         return ''

@@ -126,7 +126,7 @@ export default defineConfig({{
   timeout: {timeout},
 
   use: {{
-    baseURL: process.env.BASE_URL || 'http://beauty-crm.localhost/api/v1/identity',
+    baseURL: process.env.BASE_URL || 'http://TDK Landscape.localhost/api/v1/identity',
     extraHTTPHeaders: {{
       'Content-Type': 'application/json',
     }},

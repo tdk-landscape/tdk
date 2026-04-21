@@ -150,7 +150,7 @@ diagnostics_menu() {
     case $choice in
         1)
             echo -e "${BLUE}Testing network connectivity...${NC}"
-            run_command "$service_name" "nc -zv registry.npmjs.org 443 && nc -zv beauty-crm-verdaccio 4873"
+            run_command "$service_name" "nc -zv registry.npmjs.org 443 && nc -zv TDK Landscape-verdaccio 4873"
             ;;
         2)
             echo -e "${BLUE}Viewing configuration files...${NC}"

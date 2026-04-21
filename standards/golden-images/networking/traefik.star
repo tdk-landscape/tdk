@@ -6,7 +6,7 @@ load(
     "./traefik_constants.star",
     "TRAEFIK_BACKEND_ENABLE_HTTP",
     "TRAEFIK_BACKEND_ENABLE_HTTPS",
-    "TRAEFIK_BEAUTYCRM_HOST",
+    "TRAEFIK_TDK_HOST",
     "TRAEFIK_DOCKER_NETWORK",
     "TRAEFIK_ENABLE_LABEL",
     "TRAEFIK_FRONTEND_ENABLE_HTTP",
@@ -27,7 +27,7 @@ load("./traefik_helpers.star",
     "build_entrypoints", 
     "frontend_rule",
     "get_api_path",
-    "beauty_crm_backend_rule",
+    "TDK_backend_rule",
 )
 
 
@@ -127,13 +127,13 @@ def get_backend_traefik_labels(
         traefik_network=TRAEFIK_DOCKER_NETWORK,
     )
 
-    # Generate beauty-crm.localhost routing from manifest domain
+    # Generate TDK Landscape.localhost routing from manifest domain
     if manifest:
         domain = manifest.get("domain", "")
         if domain:
             api_path = get_api_path(domain, manifest)
-            beauty_crm_rule = beauty_crm_backend_rule(manifest)
-            beauty_crm_entrypoints = build_entrypoints(
+            TDK_rule = TDK_backend_rule(manifest)
+            TDK_entrypoints = build_entrypoints(
                 TRAEFIK_BACKEND_ENABLE_HTTP,
                 TRAEFIK_BACKEND_ENABLE_HTTPS,
             )
@@ -141,17 +141,17 @@ def get_backend_traefik_labels(
             router_priority = TRAEFIK_FRONTEND_PRIORITY_BASE + len(api_path)
             
             labels += """
-      - "traefik.http.routers.{service_entry_name}-beauty-crm.rule={beauty_crm_rule}"
-      - "traefik.http.routers.{service_entry_name}-beauty-crm.entrypoints={beauty_crm_entrypoints}"
-      - "traefik.http.routers.{service_entry_name}-beauty-crm.service={traefik_service_name}"
-      - "traefik.http.routers.{service_entry_name}-beauty-crm.middlewares={middleware_name}-beauty-crm{maintenance_middleware}"
-      - "traefik.http.middlewares.{middleware_name}-beauty-crm.stripprefix.prefixes={api_path}"
-      - "traefik.http.routers.{service_entry_name}-beauty-crm.priority={router_priority}"
+      - "traefik.http.routers.{service_entry_name}-TDK Landscape.rule={TDK_rule}"
+      - "traefik.http.routers.{service_entry_name}-TDK Landscape.entrypoints={TDK_entrypoints}"
+      - "traefik.http.routers.{service_entry_name}-TDK Landscape.service={traefik_service_name}"
+      - "traefik.http.routers.{service_entry_name}-TDK Landscape.middlewares={middleware_name}-TDK Landscape{maintenance_middleware}"
+      - "traefik.http.middlewares.{middleware_name}-TDK Landscape.stripprefix.prefixes={api_path}"
+      - "traefik.http.routers.{service_entry_name}-TDK Landscape.priority={router_priority}"
 """.format(
                 service_entry_name=service_entry_name,
                 traefik_service_name=traefik_service_name,
-                beauty_crm_rule=beauty_crm_rule,
-                beauty_crm_entrypoints=beauty_crm_entrypoints,
+                TDK_rule=TDK_rule,
+                TDK_entrypoints=TDK_entrypoints,
                 middleware_name=middleware_name,
                 maintenance_middleware=maintenance_middleware,
                 api_path=api_path,

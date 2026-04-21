@@ -1,5 +1,5 @@
 # =============================================================================
-# 🌐 BEAUTY CRM - API PATH CONSTANTS (Dynamic)
+# 🌐 TDK Landscape - API PATH CONSTANTS (Dynamic)
 # =============================================================================
 # API paths are generated dynamically from manifest domain and appName fields
 # No hardcoded service names - all from platform-computing-provisioner.manifest.json
@@ -46,7 +46,7 @@ API_PATH_TO_SERVICE_DOMAIN = {}
 def _pluralize_domain(domain):
     """Convert domain to proper plural form.
     
-    Handles irregular plurals and special cases for Beauty CRM domains.
+    Handles irregular plurals and special cases for TDK Landscape domains.
     
     Args:
         domain: Singular domain name (e.g., "identity", "salon", "appointment")
@@ -144,12 +144,12 @@ def get_domain_for_api_path(api_path):
     """
     return API_PATH_TO_SERVICE_DOMAIN.get(api_path, "")
 
-def build_traefik_url(api_path, host="beauty-crm.localhost", scheme="http"):
+def build_traefik_url(api_path, host="TDK Landscape.localhost", scheme="http"):
     """Builds full Traefik gateway URL from API path.
     
     Args:
         api_path: API path
-        host: Gateway host (default: beauty-crm.localhost)
+        host: Gateway host (default: TDK Landscape.localhost)
         scheme: URL scheme (default: http)
     
     Returns:

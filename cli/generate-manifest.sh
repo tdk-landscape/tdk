@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # =============================================================================
-# 🎯 BEAUTY CRM - SERVICE MANIFEST GENERATOR
+# 🎯 TDK Landscape - SERVICE MANIFEST GENERATOR
 # =============================================================================
 # Usage: ./generate-manifest.sh <domain> <service-name> <type> [port]
 #
@@ -35,7 +35,7 @@ PROJECT_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 print_usage() {
     cat << EOF
 ${BLUE}╔═══════════════════════════════════════════════════════════════════╗
-║  🎯  BEAUTY CRM SERVICE MANIFEST GENERATOR                         ║
+║  🎯  TDK Landscape SERVICE MANIFEST GENERATOR                         ║
 ╚═══════════════════════════════════════════════════════════════════╝${NC}
 
 ${YELLOW}Usage:${NC}

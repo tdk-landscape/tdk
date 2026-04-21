@@ -23,8 +23,8 @@ load('./bun_helpers.star', 'bun_hoisted_packages_symlink_fix')
 load("../../../../../.tilt/TILT_SERVICE_DEFAULTS.star", "BASE_PORT_FRONTEND", "BASE_PORT_BACKEND", "get_docker_healthcheck_config")
 
 _docker_cfg = GLOBAL_CONFIG['docker']
-GOLDEN_L4_BACKEND_IMAGE = _docker_cfg.get('golden_l4_backend_image', 'beauty-crm-l4-backend:latest')
-GOLDEN_L4_FRONTEND_IMAGE = _docker_cfg.get('golden_l4_frontend_image', 'beauty-crm-l4-frontend:latest')
+GOLDEN_L4_BACKEND_IMAGE = _docker_cfg.get('golden_l4_backend_image', 'TDK Landscape-l4-backend:latest')
+GOLDEN_L4_FRONTEND_IMAGE = _docker_cfg.get('golden_l4_frontend_image', 'TDK Landscape-l4-frontend:latest')
 
 # Load Docker healthcheck configuration
 _docker_health = get_docker_healthcheck_config()
@@ -106,7 +106,7 @@ def L4_generate_backend_runtime(res_path, port = BASE_PORT_BACKEND, cmd = 'bun r
         # Copy entrypoint script only - Infisical CLI is NOT included in golden images
         # to avoid Cloudsmith CDN build hangs. Secrets are injected via env vars at runtime.
         # The entrypoint.sh gracefully handles missing CLI by falling back to env vars.
-        # See: https://github.com/san4osq/beauty-crm/blob/main/KNOWN_ISSUES.md
+        # See: https://github.com/san4osq/tdk/blob/main/KNOWN_ISSUES.md
         parts.append("COPY --chmod=0755 shared-platform-engineering/docker-templates/infisical-entrypoint.sh /entrypoint.sh\n")
         
         parts.append(

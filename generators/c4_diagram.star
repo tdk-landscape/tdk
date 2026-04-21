@@ -1,5 +1,5 @@
 """
-C4 Diagram Generator for Beauty CRM
+C4 Diagram Generator for TDK Landscape
 Auto-generates C4 model data from service manifests with proper borders
 and internal dependency tracking.
 """
@@ -137,7 +137,7 @@ def generate_c4_model(services):
         "levels": {
             "1": {
                 "name": "System Context",
-                "description": "Beauty CRM system domains",
+                "description": "TDK Landscape system domains",
                 "elements": list(domains.values())
             },
             "2": {

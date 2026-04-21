@@ -272,7 +272,7 @@ export default defineConfig({{
     rollupOptions: {{
       external: [
         /^node:.*/,
-        /^@beauty-crm\\/.*$/,
+        /^@TDK Landscape\\/.*$/,
         'react',
         'react-dom',
         'react/jsx-runtime',
@@ -392,7 +392,7 @@ export default defineConfig({{
     rollupOptions: {{
       external: [
         /^node:.*/,
-        /^@beauty-crm\\/.*$/,
+        /^@TDK Landscape\\/.*$/,
         'react',
         'react-dom',
         'react/jsx-runtime',
@@ -480,7 +480,7 @@ export default defineConfig({{
     rollupOptions: {{
       external: [
         /^node:.*/,
-        /^@beauty-crm\\/.*$/,
+        /^@TDK Landscape\\/.*$/,
         'react',
         'react-dom',
         'react/jsx-runtime',

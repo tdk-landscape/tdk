@@ -4,7 +4,7 @@
 
 load(
     "./traefik_constants.star",
-    "TRAEFIK_BEAUTYCRM_HOST",
+    "TRAEFIK_TDK_HOST",
     "TRAEFIK_ENABLE_BACKEND_PATH_RULE",
     "TRAEFIK_ENABLE_BACKEND_HOST_RULE",
     "TRAEFIK_ENABLE_FRONTEND_HOST_RULE",
@@ -42,7 +42,7 @@ def frontend_rule(res_name, base_path, traefik_host):
     if TRAEFIK_ENABLE_FRONTEND_PATH_RULE:
         parts.append(
             "(Host(`{host}`) && PathPrefix(`{base_path}`))".format(
-                host=TRAEFIK_BEAUTYCRM_HOST,
+                host=TRAEFIK_TDK_HOST,
                 base_path=base_path,
             ),
         )
@@ -67,7 +67,7 @@ def backend_rule(traefik_host, traefik_path):
 def _pluralize_domain(domain):
     """Convert domain to proper plural form.
     
-    Handles irregular plurals and special cases for Beauty CRM domains.
+    Handles irregular plurals and special cases for TDK Landscape domains.
     
     Args:
         domain: Singular domain name (e.g., "identity", "salon", "appointment")
@@ -130,14 +130,14 @@ def get_api_path(domain, manifest=None):
     )
 
 
-def beauty_crm_backend_rule(manifest):
-    """Generate routing rule for beauty-crm.localhost from manifest.
+def TDK_backend_rule(manifest):
+    """Generate routing rule for TDK Landscape.localhost from manifest.
     
     Args:
         manifest: Service manifest dictionary
     
     Returns:
-        str: Traefik routing rule for beauty-crm.localhost
+        str: Traefik routing rule for TDK Landscape.localhost
     """
     if not manifest:
         return ""
@@ -148,6 +148,6 @@ def beauty_crm_backend_rule(manifest):
     
     api_path = get_api_path(domain, manifest)
     return "Host(`{host}`) && PathPrefix(`{path}`)".format(
-        host=TRAEFIK_BEAUTYCRM_HOST,
+        host=TRAEFIK_TDK_HOST,
         path=api_path,
     )

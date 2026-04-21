@@ -85,7 +85,7 @@ def discover_missing_dependencies(all_services, library_roots):
     Discovers dependencies that are referenced but don't exist.
     
     Analyzes all service manifests and package.json files to find
-    @beauty-crm dependencies that don't have corresponding libraries.
+    @TDK Landscape dependencies that don't have corresponding libraries.
     
     Returns: list of missing dependencies with metadata
     """

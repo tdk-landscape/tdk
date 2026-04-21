@@ -10,16 +10,16 @@ BUN_BASE = "oven/bun:1.3.11-alpine"
 ALPINE_BASE = "alpine:3.18"
 load('../../../tilt/discovery/config.star', 'GLOBAL_CONFIG')
 
-GOLDEN_L1_IMAGE = GLOBAL_CONFIG['docker'].get('golden_l1_image', 'beauty-crm-l1:latest')
+GOLDEN_L1_IMAGE = GLOBAL_CONFIG['docker'].get('golden_l1_image', 'TDK Landscape-l1:latest')
 
 
-def L1_generate_os_base(base_image = None, maintainer = "beauty-crm", use_golden = True):
+def L1_generate_os_base(base_image = None, maintainer = "TDK Landscape", use_golden = True):
     """
     Generate the OS base layer with Alpine Linux and essential tools.
     
     Args:
-        base_image: Base image to use (default: beauty-crm-l1:latest if use_golden=True, else Alpine 3.18)
-        maintainer: Maintainer label (default: "beauty-crm")
+        base_image: Base image to use (default: TDK Landscape-l1:latest if use_golden=True, else Alpine 3.18)
+        maintainer: Maintainer label (default: "TDK Landscape")
         use_golden: Whether to use the golden L1 image (default: True)
     
     Returns:
@@ -31,7 +31,7 @@ def L1_generate_os_base(base_image = None, maintainer = "beauty-crm", use_golden
         base_image = GOLDEN_L1_IMAGE if use_golden else ALPINE_BASE
     
     # If using golden L1 image, skip dependency installation (already in base)
-    if base_image == GOLDEN_L1_IMAGE or "beauty-crm-l1" in base_image:
+    if base_image == GOLDEN_L1_IMAGE or "TDK Landscape-l1" in base_image:
         return (
             "# ---- L1: os_base (Golden L1: " + base_image + ") ----\n"
             + "FROM " + base_image + " AS l1_os_base\n"

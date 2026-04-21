@@ -4,7 +4,7 @@
 # 🔧 TILT SERVICE DEFAULTS MASTER CONFIG
 # =============================================================================
 # 
-# Defines standard configurations for all services in the Beauty CRM platform.
+# Defines standard configurations for all services in the TDK Landscape platform.
 # This provides consistent port allocation, health checks, and build settings.
 #
 # See: docs/TILT_MASTER_CONFIGS.md

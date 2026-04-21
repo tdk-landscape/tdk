@@ -4,7 +4,7 @@
 # 🏗️ TILT TECH STACK MASTER CONFIG
 # =============================================================================
 # 
-# Defines the approved technology choices for the Beauty CRM platform.
+# Defines the approved technology choices for the TDK Landscape platform.
 # This is the single source of truth for tech stack validation.
 #
 # See: docs/TILT_MASTER_CONFIGS.md

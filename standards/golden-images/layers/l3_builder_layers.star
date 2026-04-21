@@ -23,8 +23,8 @@ load('./prisma/prisma_build.star',
 )
 
 _docker_cfg = GLOBAL_CONFIG['docker']
-GOLDEN_L3_BACKEND_IMAGE = _docker_cfg.get('golden_l3_backend_image', 'beauty-crm-l3-backend:latest')
-GOLDEN_L3_FRONTEND_IMAGE = _docker_cfg.get('golden_l3_frontend_image', 'beauty-crm-l3-frontend:latest')
+GOLDEN_L3_BACKEND_IMAGE = _docker_cfg.get('golden_l3_backend_image', 'TDK Landscape-l3-backend:latest')
+GOLDEN_L3_FRONTEND_IMAGE = _docker_cfg.get('golden_l3_frontend_image', 'TDK Landscape-l3-frontend:latest')
 
 
 def L3_generate_backend_compiler(res_path, build_cmd = RUNTIME_CONFIG["backend_start_command"], use_prisma = True, use_shared_libs = True, use_infisical = True, use_golden = True, has_prisma_config = False):
@@ -72,7 +72,7 @@ def L3_generate_backend_compiler(res_path, build_cmd = RUNTIME_CONFIG["backend_s
         prisma_generate,
         prisma_compat,
     ]
-    # shared libs (@beauty-crm/*) are resolved from Verdaccio by l2_deps_manifest
+    # shared libs (@tdk/*) are resolved from Verdaccio by l2_deps_manifest
     # and already present in node_modules — no COPY of shared-* source dirs needed.
     # Only install Infisical CLI if explicitly not skipped AND not using golden image
     # Golden images already have Infisical CLI installed or we rely on env vars
@@ -137,7 +137,7 @@ def L3_generate_frontend_builder(res_path, build_cmd = RUNTIME_CONFIG["frontend_
         "COPY " + res_path_rel + "/public ./public\n",
         "COPY " + res_path_rel + "/index.html ./index.html\n",
     ]
-    # shared libs (@beauty-crm/*) are resolved from Verdaccio by l2_deps_manifest
+    # shared libs (@tdk/*) are resolved from Verdaccio by l2_deps_manifest
     # and already present in node_modules — no COPY of shared-* source dirs needed.
     # Only install Infisical CLI if explicitly not skipped AND not using golden image
     if use_infisical and not use_golden:

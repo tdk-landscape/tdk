@@ -7,8 +7,8 @@
 # =============================================================================
 
 # Project name constants
-PROJECT_NAME = "beauty_crm"
-PROJECT_NAME_HYPHEN = "beauty-crm"
+PROJECT_NAME = "TDK Landscape"
+PROJECT_NAME_HYPHEN = "TDK Landscape"
 
 # Domain constants
 LOCAL_DOMAIN = PROJECT_NAME_HYPHEN + ".localhost"

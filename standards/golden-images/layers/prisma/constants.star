@@ -61,15 +61,15 @@ PRISMA_GENERATE_RUN = "RUN " + PRISMA_GENERATE_COMMAND + "\n"
 PRISMA_MIGRATE_DEPLOY_SUBCOMMAND = "migrate deploy"
 PRISMA_GENERATE_SUBCOMMAND = "generate"
 
-DEFAULT_GOLDEN_L3_MIGRATOR_IMAGE = "beauty-crm-l3-migrator:latest"
-DEFAULT_GOLDEN_L4_MIGRATOR_IMAGE = "beauty-crm-l4-migrator:latest"
+DEFAULT_GOLDEN_L3_MIGRATOR_IMAGE = "TDK Landscape-l3-migrator:latest"
+DEFAULT_GOLDEN_L4_MIGRATOR_IMAGE = "TDK Landscape-l4-migrator:latest"
 
 DEFAULT_DB_PORT = "5432"
 DEFAULT_DB_WAIT_TIMEOUT_SECS = 120
 DB_URL_HOSTPORT_WITH_AUTH_SED = "sed -n 's#^[^/]*//[^@]*@\\([^/]*\\)/.*#\\1#p'"
 DB_URL_HOSTPORT_NO_AUTH_SED = "sed -n 's#^[^/]*//\\([^/]*\\)/.*#\\1#p'"
 
-DEFAULT_INFISICAL_URL = "http://beauty-crm-infisical:8081"
+DEFAULT_INFISICAL_URL = "http://TDK Landscape-infisical:8081"
 DATABASE_URL_UNSET_CONDITION = "[ -z \"$DATABASE_URL\" ] || [ \"$DATABASE_URL\" = \"null\" ]"
 INFISICAL_SECRET_ENV_KEYS = [
     "DATABASE_URL",

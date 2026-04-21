@@ -21,7 +21,7 @@ _discovery_config = get_discovery_config()
 # =============================================================================
 
 DEFAULT_DB_CONFIG = {
-    "host": "beauty_crm_postgres",
+    "host": "TDK_postgres",
     "port": 5432,
     "user": "postgres",
     # ⚠️ SECURITY: No default password - must be provided via POSTGRES_PASSWORD env var
@@ -32,7 +32,7 @@ DEFAULT_DB_CONFIG = {
 }
 
 # Database naming conventions
-DB_NAME_PREFIX = "beauty_crm_"
+DB_NAME_PREFIX = "TDK_"
 
 # =============================================================================
 # Database Provisioning
@@ -66,7 +66,7 @@ def provision_database_for_service(service_name, db_name, db_config=None):
     # Docker Compose entry
     compose_entry = {
         "image": "postgres:16-alpine",
-        "container_name": "beauty-crm-{}-db".format(service_name.replace("_", "-")),
+        "container_name": "TDK Landscape-{}-db".format(service_name.replace("_", "-")),
         "environment": {
             "POSTGRES_DB": full_db_name,
             "POSTGRES_USER": config["superuser"],
@@ -74,10 +74,10 @@ def provision_database_for_service(service_name, db_name, db_config=None):
             "PGDATA": "/var/lib/postgresql/data/pgdata",
         },
         "volumes": [
-            "beauty_crm_{}_data:/var/lib/postgresql/data".format(full_db_name),
+            "TDK_{}_data:/var/lib/postgresql/data".format(full_db_name),
         ],
         "ports": [],  # Internal only
-        "networks": ["beauty_crm_network"],
+        "networks": ["TDK_network"],
         "healthcheck": {
             "test": ["CMD-SHELL", "pg_isready -U {}".format(config["superuser"])],
             "interval": "10s",
@@ -350,7 +350,7 @@ def validate_database_credentials(service_name, db_name, connection_string, db_c
                 })
             
             # Check against expected user
-            expected_user = "beauty_crm"
+            expected_user = "TDK Landscape"
             if user != expected_user and user != "postgres":
                 errors.append({
                     "type": "credentials",
